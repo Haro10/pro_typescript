@@ -1,18 +1,21 @@
-interface Sortable {
-  length: number;
-  compare(leftNumber: number, rightNumber: number): boolean;
-  swap(leftNumber: number, rightNumber: number): void;
-}
+// interface Sortable {
+//   length: number;
+//   compare(leftNumber: number, rightNumber: number): boolean;
+//   swap(leftNumber: number, rightNumber: number): void;
+// }
 
-export class Sorter {
-  constructor(public collection: Sortable) {}
+export abstract class Sorter {
+  // constructor(public collection: Sortable) {}
+  abstract length: number;
+  abstract compare(leftNumber: number, rightNumber: number): boolean;
+  abstract swap(leftNumber: number, rightNumber: number): void;
 
   sort(): void {
-    const length = this.collection.length;
+    const length = this.length;
     for (let i = 0; i < length; i++) {
       for (let j = 0; j < length - i - 1; j++) {
-        if (this.collection.compare(j, j + 1)) {
-          this.collection.swap(j, j + 1);
+        if (this.compare(j, j + 1)) {
+          this.swap(j, j + 1);
         }
       }
     }
