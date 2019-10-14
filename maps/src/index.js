@@ -1,10 +1,11 @@
-import { User } from './User';
-import { Company } from './Company';
-import { CustomMap } from './CustomMap';
-
-const user = new User();
-const company = new Company();
-// const customMap = new CustomMap('map');
+"use strict";
+exports.__esModule = true;
+var User_1 = require("./User");
+var Company_1 = require("./Company");
+var CustomMap_1 = require("./CustomMap");
+var user = new User_1.User();
+var company = new Company_1.Company();
+var customMap = new CustomMap_1.CustomMap('map');
 // const contentString =
 //   '<div id="content">' +
 //   '<div id="siteNotice">' +
@@ -26,15 +27,11 @@ const company = new Company();
 //   '(last visited June 22, 2009).</p>' +
 //   '</div>' +
 //   '</div>';
-
 // const myArea = 'Kieu Minh Ha Map';
-
-user.addMaker();
-company.addMaker();
+customMap.addMaker(user);
+customMap.addMaker(company);
 // customMap.addCompanyMaker(company);
 // console.log(user);
-
 // const company = new Company();
 // console.log(company);
-
 // const map =

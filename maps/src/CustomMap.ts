@@ -6,11 +6,15 @@ export interface Mappable {
   markerContent(): string;
 }
 
-export class CustomMap {
+export abstract class CustomMap {
   private googleMap: google.maps.Map;
+  location: {
+    lat: number;
+    lng: number;
+  };
 
-  constructor(divId: string) {
-    this.googleMap = new google.maps.Map(document.getElementById(divId), {
+  constructor() {
+    this.googleMap = new google.maps.Map(document.getElementById('map'), {
       zoom: 1,
       center: {
         lat: 0,
@@ -19,17 +23,17 @@ export class CustomMap {
     });
   }
 
-  addMaker(mappable: Mappable): void {
+  addMaker(): void {
     var marker = new google.maps.Marker({
       map: this.googleMap,
       position: {
-        lat: mappable.location.lat,
-        lng: mappable.location.lng
+        lat: this.location.lat,
+        lng: this.location.lng
       }
     });
     marker.addListener('click', function() {
       const infowindow = new google.maps.InfoWindow({
-        content: mappable.markerContent()
+        content: this.markerContent()
       });
       infowindow.open(this.googleMap, marker);
     });
