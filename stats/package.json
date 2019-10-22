@@ -13,9 +13,17 @@
   "license": "ISC",
   "dependencies": {
     "concurrently": "^5.0.0",
-    "nodemon": "^1.19.3"
+    "nodemon": "^1.19.3",
+    "typescript": "3.4.5"
   },
   "devDependencies": {
-    "@types/node": "^12.7.12"
+    "@types/node": "^12.7.12",
+    "@typescript-eslint/eslint-plugin": "^2.5.0",
+    "@typescript-eslint/parser": "^2.3.3",
+    "eslint": "^5.8.0",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.1.1",
+    "prettier": "^1.18.2"
   }
 }
