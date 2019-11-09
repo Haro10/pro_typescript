@@ -1,4 +1,5 @@
 import axios, {AxiosResponse} from 'axios';
+import {Eventing} from './Eventing';
 
 export interface UserProps {
     id?:number;
@@ -6,12 +7,29 @@ export interface UserProps {
     age?: number
 }
 
-export type CallBack = () => void;
-
 export class User {
+    //OPTION 1: put event to construtor 
+    // constructor(private data: UserProps, event: Eventing){}
+    //-> it's too compicated when creating a new User with 2 parameters
+    // When using:
+    // const user = new User({id:1, name:'Kieu Minh'}, new Eventing());
+
+    //OPTION 2: using static function like stats project
+    // constructor(private event: Eventing){}
+    // private data: UserProps = {};
+    // static fromData(data: UserProps){
+    //     const user = new User(new Eventing());
+    //     user.data = data;
+    //     return user;
+    // }
+    // -> it is not necessary because it's  will be goo when we have alot of type Eventing like stats project
+    // Like : SupperEventing, AnimalEventid => But we dont't have that -> and I think it good to have only one Eventing
+    //=> So we go to the third option
+
+    //OPTION 3: using static function like stats project
     constructor(private data: UserProps){}
-    
-    events: {[key: string]: CallBack[]} = {};
+
+    events: Eventing = new Eventing(); // with this option we always have a events
 
     get(prop: string): number | string{
         return this.data[prop]
@@ -21,20 +39,6 @@ export class User {
         Object.assign(this.data, user);
     }
     
-    on(eventName: string | number, callback : CallBack){
-        const handlers = this.events[eventName] || [];
-        handlers.push(callback);
-        this.events[eventName] = handlers;
-    }
-
-    trigger(eventName: string) : void{
-        const handlers = this.events[eventName];
-        if (!handlers || handlers.length === 0) {
-            return;
-        }
-       handlers.forEach(handler => handler());
-    }
-
     fetch(): void{
         axios.get(`http://localhost:3000/users/${this.get('id')}`)
         .then((response: AxiosResponse): void => {
