@@ -1,5 +1,4 @@
 import axios, {AxiosResponse, AxiosPromise} from 'axios';
-import { UserProps } from './User';
 
 class HasId {
   id?: number;   

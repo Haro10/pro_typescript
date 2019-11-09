@@ -7,6 +7,8 @@ export interface UserProps {
     age?: number
 }
 
+const rootUrl =  'http://localhost:3000/users';
+
 export class User {
     //OPTION 1: put event to construtor 
     // constructor(private data: UserProps, event: Eventing){}
@@ -30,15 +32,5 @@ export class User {
     constructor(private data: UserProps){}
 
     events: Eventing = new Eventing(); // with the option 3 we always have a events inside of 
-    sync: Sync<UserProps> = new Sync('http://localhost:3000/user'); 
-
-
-    get(prop: string): number | string{
-        return this.data[prop]
-    }
-
-    set(user: UserProps){
-        Object.assign(this.data, user);
-    }
-   
+    sync: Sync<UserProps> = new Sync<UserProps>(rootUrl); 
 }
