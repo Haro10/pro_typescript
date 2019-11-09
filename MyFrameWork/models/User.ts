@@ -1,4 +1,3 @@
-import axios, {AxiosResponse} from 'axios';
 import {Eventing} from './Eventing';
 
 export interface UserProps {
@@ -23,7 +22,7 @@ export class User {
     //     return user;
     // }
     // -> it is not necessary because it's  will be goo when we have alot of type Eventing like stats project
-    // Like : SupperEventing, AnimalEventid => But we dont't have that -> and I think it good to have only one Eventing
+    // Like : SupperEventing, AnimalEventing => But we dont't have that -> and I think it good to have only one Eventing
     //=> So we go to the third option
 
     //OPTION 3: using static function like stats project
@@ -38,20 +37,5 @@ export class User {
     set(user: UserProps){
         Object.assign(this.data, user);
     }
-    
-    fetch(): void{
-        axios.get(`http://localhost:3000/users/${this.get('id')}`)
-        .then((response: AxiosResponse): void => {
-           return this.set(response.data);
-        })
-    }
-
-    save():void {
-        const id = this.get('id');
-        if (id) {
-            axios.put(`http://localhost:3000/users/${id}`, this.data);
-        } else {
-            axios.post(`http://localhost:3000/users`, this.data);
-        }
-    }
+   
 }
