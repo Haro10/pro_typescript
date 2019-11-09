@@ -1,17 +1,14 @@
 import {User} from '../models/User';
 
-let user1 = new User({id: 1 , name: 'Ha', age: 1900});
-let user2 = new User({name: 'Ha', age: 1900});
-// newUser.set({age: 28});
-// newUser.on('onClick', () => {
-//     console.log('User clicked on item', newUser.get('age'));
-// });
-// newUser.on('onClick', () => {});
-// newUser.on('onHover', () => {
-//     console.log('User hover in the item');
-// });
-// newUser.trigger('onClick');
-// newUser.trigger('onHover');
+let user1 = new User({id: 1 , name: 'Ha', age: 19});
+user1.on('save', () => {
+    console.log('we save data success ');
+})
+user1.on('fetch', () => {
+    console.log('we fetch data success, and we will update other fields');
+})
+// user1.trigger('save');
+user1.fetch();
+user1.set({age: 28});
 user1.save();
-user2.save();
-// console.log(`Welcome to my project ${newUser.get('name')} with ${newUser.get('age')} age`);
+console.log(user1);
