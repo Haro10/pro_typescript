@@ -1,4 +1,5 @@
 import {Eventing} from './Eventing';
+import {Sync} from './Sync';
 
 export interface UserProps {
     id?:number;
@@ -25,10 +26,12 @@ export class User {
     // Like : SupperEventing, AnimalEventing => But we dont't have that -> and I think it good to have only one Eventing
     //=> So we go to the third option
 
-    //OPTION 3: using static function like stats project
+    //OPTION 3: create a new Eventing inside the User
     constructor(private data: UserProps){}
 
-    events: Eventing = new Eventing(); // with this option we always have a events
+    events: Eventing = new Eventing(); // with the option 3 we always have a events inside of 
+    sync: Sync<UserProps> = new Sync('http://localhost:3000/user'); 
+
 
     get(prop: string): number | string{
         return this.data[prop]
