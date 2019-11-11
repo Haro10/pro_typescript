@@ -7,18 +7,22 @@ export class Collection<T, K>{
     
     constructor(public rootUrl: string, public deserialize:(json : K)=>T){}
 
+    get trigger(){
+        return this.events.trigger;
+    }
+
     fetch(): T[]{
         axios.get(this.rootUrl)
         .then((response: AxiosResponse) => {
             response.data.forEach((data: K) => {
                 this.collection.push(this.deserialize(data))
             });
-            this.events.trigger('GetAll');
+            this.trigger('GetAll');
             console.log('collection: ', this.rootUrl)
             return this.collection;
         })
         .catch(() => {
-            this.events.trigger('error');
+            this.trigger('error');
         })
         return [];
     }
