@@ -28,13 +28,18 @@ export class Model<T extends HasId> {
         ){}
 
         get = this.attributes.get;
-        
-        set = this.attributes.set;
 
         on = this.events.on;
       
         trigger = this.events.trigger;
-     
+
+        // set = this.attributes.set;
+         
+        set(update: T): void {
+            this.attributes.set(update);
+            this.events.trigger('change');
+        }
+
         fetch(): void{
              const id = this.get('id');
              console.log(id);

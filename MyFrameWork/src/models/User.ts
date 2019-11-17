@@ -22,9 +22,8 @@ export class User extends Model<UserProps> {
         return new Collection<User,UserProps>(rootUrl, this.buildUser)
     }
 
-    //you can't feel free to implement any function with your bussiness - How is beautiful you are!!!
-    isAdmin(): boolean{
-        return this.get('id') === 1;
+    setRandomAge(): void{
+        const age = Math.round(Math.random() * 100);
+        this.set({age});
     }
-   
 }
