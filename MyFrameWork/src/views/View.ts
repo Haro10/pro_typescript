@@ -1,8 +1,6 @@
-interface ModelForView {
-    on(name: string, callBack: () => void) : void;
-};
+import { Model } from "../models/Model";
 
-abstract class View<T extends ModelForView> {
+export abstract class View<T extends Model<K>, K> {
     constructor(public parent: Element, public model: T){
         this.bindModel();
     }
@@ -30,8 +28,6 @@ abstract class View<T extends ModelForView> {
         this.parent.innerHTML = '';
         const templateElement = document.createElement('template'); // it means type template
         templateElement.innerHTML = this.template();
-        console.log('this.template()', this)
-        console.log(templateElement.content);
         this.bindEvents(templateElement.content);
         this.parent.append(templateElement.content)
     }
