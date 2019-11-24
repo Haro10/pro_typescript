@@ -36,7 +36,6 @@ export abstract class View<T extends Model<K>, K> {
         const viewsMap = this.viewsMap();
         for (let viewKey in viewsMap) {
           const view = fragment.querySelector(viewsMap[viewKey])
-          console.log('view', view);
           if (view) {
             this.views[viewKey] = view;
           }
