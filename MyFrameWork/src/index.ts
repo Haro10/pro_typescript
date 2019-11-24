@@ -1,17 +1,16 @@
-import {UserForm} from './views/UserForm';
 import { User } from './models/User';
+import { UserEdit } from './views/UserEdit';
 
 const root =  document.getElementById('root');
 if (root) {
-    const userForm = new UserForm(
+    const view = new UserEdit(
         root,
-         User.buildUser({
+        User.buildUser({
              name: 'Ha',
              age: 29
          })
-     )
-     
-     userForm.render();
+     )   
+     view.render();
 } else {
     throw new Error('the root is not existing');
 }
