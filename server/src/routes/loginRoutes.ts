@@ -7,6 +7,23 @@ interface RequestWithBody extends Request {
 }
 
 router.get('/', (req: Request, res: Response) => {
+    if (req.session && req.session.logged) {
+        res.send(`
+        <div>
+        <h1>
+            you are logged in!
+        </h1>
+        <a href="/logout">Logout</a>
+        </div>
+        `);
+    } else {
+        res.send(`
+        <div>
+        <h1> you are not logged!</h1>
+        <a href="/login">Login</a>
+        </div>
+        `)
+    }
     res.send('hi there!');
 })
 
@@ -26,13 +43,20 @@ router.get('/login', (req: Request, res: Response) => {
     `);
 })
 
-router.post('/login', (res: RequestWithBody, req: Response) => {
-  const { email, password } = res.body;
+router.post('/login', (req: RequestWithBody, res: Response) => {
+  const { email, password } = req.body;
+  
    if (email && password) {
-    req.send('You are logged');
+    req.session = {logged: true};
+    res.redirect('/');
    } else {
-    req.send('your password or email is not valid');
+    res.redirect('/');
    }
+})
+
+router.get('/logout', (req: RequestWithBody, res: Response) => {
+    req.session = {logged: undefined};
+    res.redirect('/');
 })
 
 export { router };
