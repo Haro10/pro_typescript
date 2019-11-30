@@ -2,6 +2,10 @@ import {Router, Request, Response} from 'express';
 
 const router = Router();
 
+interface RequestWithBody extends Request {
+    body: { [key:string]: string | undefined };
+}
+
 router.get('/', (req: Request, res: Response) => {
     res.send('hi there!');
 })
@@ -22,10 +26,13 @@ router.get('/login', (req: Request, res: Response) => {
     `);
 })
 
-router.post('/login', (res: Request, req: Response) => {
+router.post('/login', (res: RequestWithBody, req: Response) => {
   const { email, password } = res.body;
-
-   req.send('You are logged');
+   if (email && password) {
+    req.send('You are logged');
+   } else {
+    req.send('your password or email is not valid');
+   }
 })
 
 export { router };
